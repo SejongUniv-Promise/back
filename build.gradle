@@ -34,6 +34,9 @@ dependencies {
 	//webClient
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+	// jsoup (html parser)
+	implementation 'org.jsoup:jsoup:1.15.4'
+
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
