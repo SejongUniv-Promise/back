@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import rtsj.sejongPromise.domain.book.model.BookField;
 import rtsj.sejongPromise.global.webclient.ChromeAgentWebclient;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Service
 public class SejongStudentService extends SejongScrapper{
     private final String STUDENT_INFO_URI;
 
@@ -26,7 +28,7 @@ public class SejongStudentService extends SejongScrapper{
         this.STUDENT_INFO_URI = studentInfoUri;
     }
 
-    public StudentInfo createStudentInfo(SejongAuth auth){
+    public StudentInfo crawlStudentInfo(SejongAuth auth){
         String html = requestWebInfo(auth, STUDENT_INFO_URI);
         return parseStudentInfo(html);
     }
