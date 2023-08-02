@@ -2,6 +2,7 @@ package rtsj.sejongPromise.infra.sejong.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.reactive.function.client.WebClient;
+import rtsj.sejongPromise.infra.sejong.model.SejongAuth;
 
 @RequiredArgsConstructor
 public class SejongScrapper {
@@ -23,6 +24,25 @@ public class SejongScrapper {
                     .block();
         }catch (Throwable t){
             throw new RuntimeException(t);
+        }
+        return result;
+    }
+
+    protected String requestWebInfo(SejongAuth auth, String uri){
+        String result;
+        try{
+            result = webClient.get()
+                    .uri(uri)
+                    .cookies(auth.authCookies())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+        }catch (Throwable t){
+            throw new RuntimeException(t);
+        }
+
+        if(result == null){
+            throw new RuntimeException("응답값이 존재하지 않습니다.");
         }
         return result;
     }
