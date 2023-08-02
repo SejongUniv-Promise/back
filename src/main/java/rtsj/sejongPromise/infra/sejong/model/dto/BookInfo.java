@@ -1,4 +1,4 @@
-package rtsj.sejongPromise.infra.sejong.dto;
+package rtsj.sejongPromise.infra.sejong.model.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
