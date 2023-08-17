@@ -15,6 +15,7 @@ public class BookDto {
     private final String writer;
     private final String com;
     private final String imageUrl;
+    private final Long code;
 
     public BookDto(Book book){
         this.bookId = book.getId();
@@ -23,5 +24,6 @@ public class BookDto {
         this.writer = book.getWriter();
         this.com = book.getCom();
         this.imageUrl = book.getImageUrl();
+        this.code = book.getCode();
     }
 }
