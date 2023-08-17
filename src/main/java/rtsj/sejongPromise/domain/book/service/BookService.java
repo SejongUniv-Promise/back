@@ -12,20 +12,25 @@ import rtsj.sejongPromise.domain.book.model.field.BookField;
 import rtsj.sejongPromise.domain.book.repository.BookMemoryRepository;
 import rtsj.sejongPromise.domain.book.repository.BookPersistenceRepository;
 import rtsj.sejongPromise.domain.book.repository.spec.BookSpec;
+import rtsj.sejongPromise.infra.sejong.model.BookCodeInfo;
 import rtsj.sejongPromise.infra.sejong.model.BookInfo;
 import rtsj.sejongPromise.infra.sejong.service.SejongBookService;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class BookService {
+    private static final String TITLE_PATTERN = "[·\\- /*()＊]";
 
     private final BookMemoryRepository memoryRepository;
     private final BookPersistenceRepository persistenceRepository;
     private final SejongBookService sejongBookService;
+
 
 
     @Transactional
@@ -55,6 +60,21 @@ public class BookService {
                 persistenceRepository.save(newBook);
             }
         });
+
+        // #3 책 정보 업데이트
+        Arrays.stream(BookField.values()).map(BookField::getCode).forEach(code -> {
+            List<Book> dest = persistenceRepository.findAllByField(BookField.of(code));
+            List<BookCodeInfo> src = sejongBookService.getBookCode(code);
+
+            dest.forEach(book -> {
+                src.forEach(bookCodeInfo -> {
+                    if(bookCodeInfo.getTitle().replaceAll(TITLE_PATTERN, "").contains(book.getTitle().replaceAll(TITLE_PATTERN, "").substring(0,2))){
+                        book.updateCode(bookCodeInfo.getCode());
+                    }
+                });
+            });
+        });
+
     }
 
     @Transactional(readOnly = true)
