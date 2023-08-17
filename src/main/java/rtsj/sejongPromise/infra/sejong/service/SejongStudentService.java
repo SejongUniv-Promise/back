@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import rtsj.sejongPromise.domain.book.model.BookField;
+import rtsj.sejongPromise.domain.book.model.field.BookField;
 import rtsj.sejongPromise.global.webclient.ChromeAgentWebclient;
 import rtsj.sejongPromise.infra.sejong.model.ExamInfo;
 import rtsj.sejongPromise.infra.sejong.model.SejongAuth;

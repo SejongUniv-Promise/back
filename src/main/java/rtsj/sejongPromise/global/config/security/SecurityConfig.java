@@ -19,7 +19,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private static final String[] PUBLIC_URI = {
-            "/swagger-ui/**", "/api-docs/**", "/test/**"
+            "/swagger-ui/**", "/api-docs/**", "/test/**","/h2-console/**"
     };
 
     @Bean
@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
                 .antMatchers(PUBLIC_URI).permitAll()
