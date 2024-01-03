@@ -1,4 +1,4 @@
-package rtsj.sejongPromise.domain.book.model;
+package rtsj.sejongPromise.domain.book.model.field;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
